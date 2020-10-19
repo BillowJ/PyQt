@@ -54,7 +54,7 @@ class LianjiaSpider(scrapy.Spider):
                 yield item
 
         #下一页
-        if self.nextPage < 2:
+        if self.nextPage < 50:
             time.sleep(2)
             _url = self.base_urls + "/zufang/pg" + str(self.nextPage)
             self.nextPage += 1

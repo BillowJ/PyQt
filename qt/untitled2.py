@@ -70,7 +70,7 @@ class Ui_subForm_2(QtWidgets.QWidget, object):
         self.webView.load(QUrl(r'E:/Diplomat_Project/render.html'))
         self.horizontalLayout.addWidget(self.webView)
         self.lineEdit.setText(os.getcwd())
-        self.pushButton_3.clicked.connect(self.chose_file_path)
+        self.pushButton_3.clicked.connect(self.ChoseFilePath)
         self.pushButton.clicked.connect(self.DiagramOfSector)
 
     def retranslateUi(self, subForm_2):
@@ -83,24 +83,26 @@ class Ui_subForm_2(QtWidgets.QWidget, object):
         self.pushButton_4.setText(_translate("subForm_2", "散点图"))
 
     def testButton(self):
-        _url = r'E:/Diplomat_Project/render.html'
+        _url = 'E:/Diplomat_Project/MyProject/pac/RunTo/DATA_2020_10_05.html'
         baidu_url = "https://www.baidu.com"
         self.webView.load(QUrl(_url))
 
-    def chose_file_path(self):
+    def ChoseFilePath(self):
         curPath = os.getcwd()
         Path = QtWidgets.QFileDialog.getOpenFileName(self, 'Open Data File', curPath,
                                                      "Data File(*.csv;*.xls);;")
         FILE_PATH = Path[0]
         self.lineEdit.setText(FILE_PATH)
 
-    # 扇形图
+    # 柱形图
     def DiagramOfSector(self):
         DataFile = self.lineEdit.text()
         print(DataFile)
         sdg = SectorDiagramMaker(str(DataFile))
         FinalData = sdg.get()
-        print("-------")
-        print(FinalData)
-        # self.webView.load(QUrl(FinalData))
+        self.webView.load(QUrl(FinalData))
+
+    # 折线图
+    def LineChart(self):
+        pass
 

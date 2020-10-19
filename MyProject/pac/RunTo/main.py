@@ -2,7 +2,7 @@
 # Designed by BillowJ
 
 from PyQt5.Qt import *
-from untitled import Ui_Form
+from qt.untitled import Ui_Form
 from  qt.untitled1 import Ui_subForm_1
 from  qt.untitled2 import  Ui_subForm_2
 import sys

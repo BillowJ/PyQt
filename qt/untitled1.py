@@ -12,23 +12,19 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import time
 from MyProject.pac.spiders.LianJia import LianjiaSpider
 from twisted.internet import reactor
-# from scrapy.crawler import CrawlerRunner
 from multiprocessing import Process, Manager
 from scrapy.crawler import CrawlerProcess
-import MyProject.pac.settings as sett
-from scrapy.utils.project import get_project_settings
 import  os
 
 def crawl(Q, Path):
     Path = Path
-    # runner = CrawlerProcess(get_project_settings())
     runner = CrawlerProcess(settings={
         'FILE_PATH' : Path,
         'ITEM_PIPELINES' : { "MyProject.pac.pipelines.PacPipeline" : 300 },
         'LOG_LEVEL' : 'ERROR',
-        'USER_AGENT' : 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36'
-
+        'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36'
     })
+    #
     runner.crawl(LianjiaSpider, Q = Q)
     runner.start()
 
@@ -38,27 +34,13 @@ class LogThread(QtCore.QThread):
         super(LogThread, self).__init__()
         self.MainGui = MainGui
 
-
-    # def __del__(self):
-    #     self.wait()
-
     def run(self):
         while True:
             if not self.MainGui.Q.empty():
-
-                # self.MainGui.textBrowser.append(self.MainGui.Q.get())
-                # print("curData:", self.MainGui.Q.get())
-
-                # cursor = self.MainGui.textBrowser.textCursor()
-                # pos =  len(self.MainGui.textBrowser.toPlainText())
-                # cursor.setPosition(pos)
-                # self.MainGui.textBrowser.setTextCursor(cursor)
-
                 if self.MainGui.Q.get() == 'Finish':
-                    self.MainGui.textBrowser.append("-------------------")
+                    self.MainGui.textBrowser.append("--------Finish-----------")
                     print("finished")
                     break
-                # print(type(self.MainGui.Q.get()))
                 self.sig.emit(self.MainGui.Q.get())
                 self.msleep(10)
                 QtWidgets.QApplication.processEvents()
@@ -78,6 +60,20 @@ class Ui_subForm_1(QtWidgets.QWidget, object):
     def setupUi(self, subForm_1):
         subForm_1.setObjectName("subForm_1")
         subForm_1.resize(731, 531)
+
+        self.frame = QtWidgets.QFrame(subForm_1)
+        self.frame.setGeometry(QtCore.QRect(20, 30, 701, 131))
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Sunken)
+
+        self.gridLayout_2 = QtWidgets.QGridLayout(subForm_1)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame)
+        self.gridLayout.setObjectName("gridLayout")
+
         self.textBrowser = QtWidgets.QTextBrowser(subForm_1)
         self.textBrowser.setGeometry(QtCore.QRect(20, 180, 711, 341))
         self.textBrowser.setObjectName("textBrowser")
@@ -91,13 +87,7 @@ class Ui_subForm_1(QtWidgets.QWidget, object):
         font.setWeight(50)
         self.label.setFont(font)
         self.label.setObjectName("label")
-        self.frame = QtWidgets.QFrame(subForm_1)
-        self.frame.setGeometry(QtCore.QRect(20, 30, 701, 131))
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Sunken)
+
         #self.frame.setWindowOpacity()
         self.pushButton = QtWidgets.QPushButton(self.frame)
         self.pushButton.setGeometry(QtCore.QRect(120, 80, 151, 31))
@@ -125,12 +115,18 @@ class Ui_subForm_1(QtWidgets.QWidget, object):
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_3.clicked.connect(self.crawl_stop)
 
+        self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.frame, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.textBrowser, 2, 0, 1, 1)
+
+        self.gridLayout.addWidget(self.lineEdit, 0, 1, 1, 2)
+        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton, 1, 0, 1, 2)
+        self.gridLayout.addWidget(self.pushButton_2, 0, 3, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_3, 1, 2, 1, 2)
 
         self.retranslateUi(subForm_1)
         QtCore.QMetaObject.connectSlotsByName(subForm_1)
-
-
-
 
 
     def retranslateUi(self, subForm_1):

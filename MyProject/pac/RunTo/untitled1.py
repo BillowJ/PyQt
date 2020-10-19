@@ -9,21 +9,15 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from multiprocessing import Process
+
 
 class Ui_subForm_1(QtWidgets.QWidget, object):
-    def __init__(self):
-        super(Ui_subForm_1, self).__init__()
-        self.setupUi(self)
-
     def setupUi(self, subForm_1):
         subForm_1.setObjectName("subForm_1")
-        subForm_1.resize(597, 497)
-        self.textBrowser = QtWidgets.QTextBrowser(subForm_1)
-        self.textBrowser.setGeometry(QtCore.QRect(60, 180, 481, 251))
-        self.textBrowser.setObjectName("textBrowser")
+        subForm_1.resize(731, 536)
+        self.gridLayout_2 = QtWidgets.QGridLayout(subForm_1)
+        self.gridLayout_2.setObjectName("gridLayout_2")
         self.label = QtWidgets.QLabel(subForm_1)
-        self.label.setGeometry(QtCore.QRect(80, 20, 101, 21))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(False)
@@ -31,34 +25,37 @@ class Ui_subForm_1(QtWidgets.QWidget, object):
         font.setWeight(50)
         self.label.setFont(font)
         self.label.setObjectName("label")
+        self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1)
         self.frame = QtWidgets.QFrame(subForm_1)
-        self.frame.setGeometry(QtCore.QRect(60, 30, 481, 121))
+        self.frame.setMinimumSize(QtCore.QSize(691, 131))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Sunken)
-        #self.frame.setWindowOpacity()
-        self.pushButton = QtWidgets.QPushButton(self.frame)
-        self.pushButton.setGeometry(QtCore.QRect(50, 70, 151, 31))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.crawl_slot)
-
-        self.pushButton_2 = QtWidgets.QPushButton(self.frame)
-        self.pushButton_2.setGeometry(QtCore.QRect(330, 20, 91, 31))
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame)
+        self.gridLayout.setObjectName("gridLayout")
+        self.lineEdit = QtWidgets.QLineEdit(self.frame)
+        self.lineEdit.setObjectName("lineEdit")
+        self.gridLayout.addWidget(self.lineEdit, 0, 1, 1, 2)
         self.label_2 = QtWidgets.QLabel(self.frame)
-        self.label_2.setGeometry(QtCore.QRect(50, 20, 81, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
-        self.lineEdit = QtWidgets.QLineEdit(self.frame)
-        self.lineEdit.setGeometry(QtCore.QRect(140, 20, 151, 31))
-        self.lineEdit.setObjectName("lineEdit")
+        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
+        self.pushButton = QtWidgets.QPushButton(self.frame)
+        self.pushButton.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.pushButton, 1, 0, 1, 2)
+        self.pushButton_2 = QtWidgets.QPushButton(self.frame)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.gridLayout.addWidget(self.pushButton_2, 0, 3, 1, 1)
         self.pushButton_3 = QtWidgets.QPushButton(self.frame)
-        self.pushButton_3.setGeometry(QtCore.QRect(260, 70, 161, 31))
         self.pushButton_3.setObjectName("pushButton_3")
+        self.gridLayout.addWidget(self.pushButton_3, 1, 2, 1, 2)
+        self.gridLayout_2.addWidget(self.frame, 1, 0, 1, 1)
+        self.textBrowser = QtWidgets.QTextBrowser(subForm_1)
+        self.textBrowser.setMinimumSize(QtCore.QSize(701, 341))
+        self.textBrowser.setObjectName("textBrowser")
+        self.gridLayout_2.addWidget(self.textBrowser, 2, 0, 1, 1)
 
         self.retranslateUi(subForm_1)
         QtCore.QMetaObject.connectSlotsByName(subForm_1)
@@ -67,16 +64,7 @@ class Ui_subForm_1(QtWidgets.QWidget, object):
         _translate = QtCore.QCoreApplication.translate
         subForm_1.setWindowTitle(_translate("subForm_1", "Form"))
         self.label.setText(_translate("subForm_1", "爬虫选项"))
+        self.label_2.setText(_translate("subForm_1", "保存路径："))
         self.pushButton.setText(_translate("subForm_1", "开始爬取"))
         self.pushButton_2.setText(_translate("subForm_1", "选择路径"))
-        self.label_2.setText(_translate("subForm_1", "保存路径："))
         self.pushButton_3.setText(_translate("subForm_1", "停止爬取"))
-
-    #创建新的线程开始爬取任务
-    def crawl_slot(self):
-        self.p = Process(target=..., args=...)
-        self.p.start()
-
-    def crawl_stop(self):
-        if(self.p):
-            self.p.terminate()
